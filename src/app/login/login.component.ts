@@ -9,8 +9,6 @@ export class LoginComponent {
   data="Your Perfect Banking Partner"   //ts to HTML data binding (string interpollation)
   data1="Enter your account number" //ts to HTML data binding (property binding)
 
-  acno:any     //acno=""  OR  acno:any 
-  pswrd:any
   userDetails:any={
     1000:{username:"anu", acno:1000, password:"1234", balance:0},
     1001:{username:"amal", acno:1001, password:"1234", balance:0},
@@ -20,35 +18,55 @@ export class LoginComponent {
 
 //create methods under Constructor & ngOnInit 
 
-  login(){   //HTML to ts data binding (event binding)
-    // alert("Signin worked ....!")
-    var acnum=this.acno
-    var userDetails=this.userDetails
-    var pswd=this.pswrd
-    if(acnum in userDetails){
-        if(pswd==userDetails[acnum]["password"]){
-            alert("Log in successful");
-        }
-        else{
-          alert("password incorrect ");
+login(acnum:any, pswd:any){   
+
+  var acnum=acnum.value
+  var userDetails=this.userDetails
+  var pswd=pswd.value
+  if(acnum in userDetails){
+      if(pswd==userDetails[acnum]["password"]){
+          alert("Log in successful");
+      }
+      else{
+        alert("password incorrect ");
+        
+      }
+  }
+  else{
+    alert("incorrect account number");
+    
+  }
+}
+
+  // login(){   //HTML to ts data binding (event binding)
+  //   // alert("Signin worked ....!")
+  //   var acnum=this.acno
+  //   var userDetails=this.userDetails
+  //   var pswd=this.pswrd
+  //   if(acnum in userDetails){
+  //       if(pswd==userDetails[acnum]["password"]){
+  //           alert("Log in successful");
+  //       }
+  //       else{
+  //         alert("password incorrect ");
           
-        }
-    }
-    else{
-      alert("incorrect account number");
+  //       }
+  //   }
+  //   else{
+  //     alert("incorrect account number");
       
-    }
-  }
+  //   }
+  // }
 
-  acnoChange(event:any){   //HTML to ts data binding ($event binding)
-    console.log(event)
-    console.log(event.target.value);
-    this.acno=event.target.value
-  }
+  // acnoChange(event:any){   //HTML to ts data binding ($event binding)
+  //   console.log(event)
+  //   console.log(event.target.value);
+  //   this.acno=event.target.value
+  // }
 
-  pswChange(event:any){
-    console.log(event);
-    console.log(event.target.value);
-    this.pswrd=event.target.value
-  }
+  // pswChange(event:any){
+  //   console.log(event);
+  //   console.log(event.target.value);
+  //   this.pswrd=event.target.value
+  // }
 }
