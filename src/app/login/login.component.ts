@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -6,9 +7,11 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
-  data="Your Perfect Banking Partner"   //ts to HTML data binding (string interpollation)
-  data1="Enter your account number" //ts to HTML data binding (property binding)
+  data="Your Perfect Banking Partner"  
+  data1="Enter your account number" 
 
+  acno:any
+  pswd:any
   userDetails:any={
     1000:{username:"anu", acno:1000, password:"1234", balance:0},
     1001:{username:"amal", acno:1001, password:"1234", balance:0},
@@ -16,16 +19,19 @@ export class LoginComponent {
     1003:{username:"megha", acno:1003, password:"1234", balance:0}
   }
 
-acno:any
-pswd:any
-  login(){   //HTML to ts data binding (event binding)
-    // alert("Signin worked ....!")
+  constructor( private router:Router){  //Dependency injection 
+// access specifier reference:Method
+
+  }
+
+  login(){   
     var acnum=this.acno
     var pswd=this.pswd
     var userDetails=this.userDetails
     if(acnum in userDetails){
         if(pswd==userDetails[acnum]["password"]){
             alert("Log in successful");
+          this.router.navigateByUrl("dashboard")      //dashboard is the path of destination page
         }
         else{
           alert("password incorrect ");
