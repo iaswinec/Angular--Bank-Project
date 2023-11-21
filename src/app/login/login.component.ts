@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,22 +13,15 @@ export class LoginComponent {
 
   acno:any
   pswd:any
-  userDetails:any={
-    1000:{username:"anu", acno:1000, password:"1234", balance:0},
-    1001:{username:"amal", acno:1001, password:"1234", balance:0},
-    1002:{username:"arun", acno:1002, password:"1234", balance:0},
-    1003:{username:"megha", acno:1003, password:"1234", balance:0}
-  }
-
-  constructor( private router:Router){  //Dependency injection 
-// access specifier reference:Method
+  constructor( private router:Router, private ds:DataService){  //Dependency injection 
+// access specifier reference:Method 
 
   }
 
   login(){   
     var acnum=this.acno
     var pswd=this.pswd
-    var userDetails=this.userDetails
+    var userDetails=this.ds.userDetails
     if(acnum in userDetails){
         if(pswd==userDetails[acnum]["password"]){
             alert("Log in successful");

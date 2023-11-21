@@ -5,15 +5,15 @@
 <h1 class="text-center mt-5 p-5">Register Form</h1>
 <form class="container text-center w-50">
     <div class="form-outline mb-4">
-        <input type="text" id="u1" name="uname" placeholder="Username"  class="form-control mt-2 p-2" />
+        <input type="text" [(ngModel)]="uname" id="u1" name="uname" placeholder="Username"  class="form-control mt-2 p-2" />
     </div>
     <div class="form-outline mb-4">
-        <input type="text" id="a1" name="accno" placeholder="Account Number"  class="form-control mt-2 p-2" />
+        <input type="text" [(ngModel)]="acno" id="a1" name="accno" placeholder="Account Number"  class="form-control mt-2 p-2" />
     </div>
     <div class="form-outline mb-4">
-        <input type="password"  id="p1" name="password" placeholder="Password" class="form-control mt-2 p-2" />
+        <input type="password" [(ngModel)]="pswd"  id="p1" name="password" placeholder="Password" class="form-control mt-2 p-2" />
     </div>
     <div>
-        <button  type="button" class="btn btn-info  mt-4 mb-3 p-2">Register</button>        
+        <button (click)="register()"  type="button" class="btn btn-info  mt-4 mb-3 p-2">Register</button>        
     </div>
 </form>
