@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+    background-color: black;
+    color: white;
+    /* background-image: url("./assets/bank_bg.png"); */
+    background-image: url("./assets/bg.jpg");
+    /* background-size: cover; */
+}
+
+header{
+    height: 70px;
+    /* width: 100%; */
+    background-color: rgb(5, 8, 1);
+}
+footer{
+    height: 70px;
+    width: 100%;
+    background-color: black; 
+    position: fixed;
+    bottom: 0;
+}
+
