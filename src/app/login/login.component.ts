@@ -16,47 +16,27 @@ export class LoginComponent {
     1003:{username:"megha", acno:1003, password:"1234", balance:0}
   }
 
-//create methods under Constructor & ngOnInit 
-
-login(acnum:any, pswd:any){   
-
-  var acnum=acnum.value
-  var userDetails=this.userDetails
-  var pswd=pswd.value
-  if(acnum in userDetails){
-      if(pswd==userDetails[acnum]["password"]){
-          alert("Log in successful");
-      }
-      else{
-        alert("password incorrect ");
-        
-      }
-  }
-  else{
-    alert("incorrect account number");
-    
-  }
-}
-
-  // login(){   //HTML to ts data binding (event binding)
-  //   // alert("Signin worked ....!")
-  //   var acnum=this.acno
-  //   var userDetails=this.userDetails
-  //   var pswd=this.pswrd
-  //   if(acnum in userDetails){
-  //       if(pswd==userDetails[acnum]["password"]){
-  //           alert("Log in successful");
-  //       }
-  //       else{
-  //         alert("password incorrect ");
+acno:any
+pswd:any
+  login(){   //HTML to ts data binding (event binding)
+    // alert("Signin worked ....!")
+    var acnum=this.acno
+    var pswd=this.pswd
+    var userDetails=this.userDetails
+    if(acnum in userDetails){
+        if(pswd==userDetails[acnum]["password"]){
+            alert("Log in successful");
+        }
+        else{
+          alert("password incorrect ");
           
-  //       }
-  //   }
-  //   else{
-  //     alert("incorrect account number");
+        }
+    }
+    else{
+      alert("incorrect account number");
       
-  //   }
-  // }
+    }
+  }
 
   // acnoChange(event:any){   //HTML to ts data binding ($event binding)
   //   console.log(event)
