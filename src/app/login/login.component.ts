@@ -19,23 +19,30 @@ export class LoginComponent {
   }
 
   login(){   
-    var acnum=this.acno
-    var pswd=this.pswd
-    var userDetails=this.ds.userDetails
-    if(acnum in userDetails){
-        if(pswd==userDetails[acnum]["password"]){
-            alert("Log in successful");
-          this.router.navigateByUrl("dashboard")      //dashboard is the path of destination page
-        }
-        else{
-          alert("password incorrect ");
-          
-        }
+    // var acnum=this.acno
+    // var pswd=this.pswd
+    // var userDetails=this.ds.userDetails
+    const result=this.ds.login(this.acno,this.pswd)
+    if(result){
+      alert("login successful")
     }
     else{
-      alert("incorrect account number");
-      
+      alert("login failed")
     }
+    // if(acnum in userDetails){
+    //     if(pswd==userDetails[acnum]["password"]){
+    //         alert("Log in successful");
+    //       this.router.navigateByUrl("dashboard")     
+    //     }
+    //     else{
+    //       alert("password incorrect ");
+          
+    //     }
+    // }
+    // else{
+    //   alert("incorrect account number");
+      
+    // }
   }
 
   // acnoChange(event:any){   //HTML to ts data binding ($event binding)
