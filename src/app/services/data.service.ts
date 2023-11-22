@@ -5,13 +5,14 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class DataService {
-
   currentUser:any
-  userDetails:any={
-    1000:{username:"anu", acno:1000, password:"1234", balance:0},
-    1001:{username:"amal", acno:1001, password:"1234", balance:0},
-    1002:{username:"arun", acno:1002, password:"1234", balance:0},
-    1003:{username:"megha", acno:1003, password:"1234", balance:0}
+  currentAcno:any  //current account number
+
+  userDetails:any={   //created  transaction array to store transactions
+    1000:{username:"anu", acno:1000, password:"1234", balance:0, transaction:[]},
+    1001:{username:"amal", acno:1001, password:"1234", balance:0, transaction:[]},
+    1002:{username:"arun", acno:1002, password:"1234", balance:0, transaction:[]},
+    1003:{username:"megha", acno:1003, password:"1234", balance:0, transaction:[]}
   }
   
   constructor(private router:Router, ) { }
@@ -22,7 +23,7 @@ export class DataService {
       return false
     }
     else{
-      userdetails[accno]={username:uname, acno:accno, password:psw, balance:0}
+      userdetails[accno]={username:uname, acno:accno, password:psw, balance:0, transaction:[]}
       console.log(userdetails);    
       return true
     }
@@ -32,6 +33,8 @@ export class DataService {
     if(acno in this.userDetails){
       if(psw==this.userDetails[acno]["password"]){   
         this.currentUser=this.userDetails[acno]["username"]
+
+        this.currentAcno=acno   //current account number
         
         this.router.navigateByUrl("dashboard")  
         return true
@@ -53,8 +56,11 @@ export class DataService {
     if(accnum in userdetails){
         if(password==userdetails[accnum]["password"]){
           userdetails[accnum]["balance"]+=amnt
-          console.log(this.userDetails);
           
+          //add transaction data
+          userdetails[accnum]["transaction"].push({ Type:"credit",Amount:amnt}) 
+          
+          console.log(this.userDetails);
           return userdetails[accnum]["balance"]
         }
         else{
@@ -76,6 +82,9 @@ export class DataService {
       if(pswd==userdetails[accnum]["password"]){
         if(amnt<=userdetails[accnum]["balance"]){
           userdetails[accnum]["balance"]-=amnt
+
+          //add transaction data
+          userdetails[accnum]["transaction"].push({Type:"debit",Amount:amnt})
           console.log(this.userDetails);
           return userdetails[accnum]["balance"]
         }
@@ -91,6 +100,12 @@ export class DataService {
       return false
     }
 }
+
+  getTransaction(accnum:any){
+    
+    return this.userDetails[accnum].transaction
+  }
+
 
 
   }
