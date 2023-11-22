@@ -1,1 +1,48 @@
-<p>dashboard works!</p>
+<h2 class="text-center mt-4">WELCOME {{username}}</h2>   <!-- string interpolation  -->    
+
+<div class="row mt-4 p-2">
+    <div class="col-4 container text-center">
+        <h4 >DEPOSIT</h4>
+        <form class="">
+            <div class="form-outline mb-4">
+                <input type="text" [(ngModel)]="accnum" id="accno1" name="accnum" placeholder="Account number"  class="form-control mt-2 p-2" />
+            </div>
+        
+            <div class="form-outline mb-4">
+                <input type="password" [(ngModel)]="password"  id="pswd1" name="password" placeholder="Password" class="form-control mt-2 p-2" />
+            </div>
+
+            <div class="form-outline mb-4">
+                <input type="number" [(ngModel)]="amount"  id="amnt1" name="amount" placeholder="Amount" class="form-control mt-2 p-2" />
+            </div>
+        
+            <div>
+                <button (click)="deposit()"  type="button" class="btn btn-info  mt-4 mb-3 p-2">Deposit</button>
+            </div>
+        </form>
+    </div>
+    
+    <div class="col-4 container text-center">
+        <h4>WITHDRAW</h4>
+        <form class="">
+            <div class="form-outline mb-4">
+                <input type="text" [(ngModel)]="accnum2" id="accno2" name="accnum" placeholder="Account number"  class="form-control mt-2 p-2" />
+            </div>
+        
+            <div class="form-outline mb-4">
+                <input type="password" [(ngModel)]="password2" id="pswd2" name="password" placeholder="Password" class="form-control mt-2 p-2" />
+            </div>
+
+            <div class="form-outline mb-4">
+                <input type="number" [(ngModel)]="amount2"  id="amnt2" name="amount" placeholder="Amount" class="form-control mt-2 p-2" />
+            </div>
+        
+            <div>
+                <button (click)="withdraw()"  type="button" class="btn btn-info  mt-4 mb-3 p-2">Withdraw</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- <div class="text-end me-4">
+    <a href=""><h5>view transactions</h5> </a>
+</div> -->

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 })
 export class DataService {
 
+  currentUser:any
   userDetails:any={
     1000:{username:"anu", acno:1000, password:"1234", balance:0},
     1001:{username:"amal", acno:1001, password:"1234", balance:0},
@@ -27,10 +28,11 @@ export class DataService {
     }
   }
   
-  // 
   login(acno:any, psw:any){
     if(acno in this.userDetails){
-      if(psw==this.userDetails[acno]["password"]){         
+      if(psw==this.userDetails[acno]["password"]){   
+        this.currentUser=this.userDetails[acno]["username"]
+        
         this.router.navigateByUrl("dashboard")  
         return true
       }
@@ -44,7 +46,56 @@ export class DataService {
     
   }
   }
-// 
 
+  deposit(accnum:any, password:any, amount:any){
+    var amnt=parseInt(amount)
+    var userdetails=this.userDetails
+    if(accnum in userdetails){
+        if(password==userdetails[accnum]["password"]){
+          userdetails[accnum]["balance"]+=amnt
+          console.log(this.userDetails);
+          
+          return userdetails[accnum]["balance"]
+        }
+        else{
+          return false
+        }
+    }
+    else{
+      return false
+    }
+  }
 
+  withdraw(accnum:any,pswd:any,amount:any){
+
+      
+    var userdetails=this.userDetails
+    var amnt=parseInt(amount)
+
+    if(accnum in userdetails){
+      if(pswd==userdetails[accnum]["password"]){
+        if(amnt<=userdetails[accnum]["balance"]){
+          userdetails[accnum]["balance"]-=amnt
+          console.log(this.userDetails);
+          return userdetails[accnum]["balance"]
+        }
+        else{
+          alert("insufficent balance")
+        }          
+      }
+      else{
+        return false
+      }
+    }
+    else{
+      return false
+    }
 }
+
+
+  }
+
+
+
+
+

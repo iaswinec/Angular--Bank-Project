@@ -19,41 +19,14 @@ export class LoginComponent {
   }
 
   login(){   
-    // var acnum=this.acno
-    // var pswd=this.pswd
-    // var userDetails=this.ds.userDetails
     const result=this.ds.login(this.acno,this.pswd)
     if(result){
       alert("login successful")
+      this.router.navigateByUrl("dashboard")
     }
     else{
       alert("login failed")
     }
-    // if(acnum in userDetails){
-    //     if(pswd==userDetails[acnum]["password"]){
-    //         alert("Log in successful");
-    //       this.router.navigateByUrl("dashboard")     
-    //     }
-    //     else{
-    //       alert("password incorrect ");
-          
-    //     }
-    // }
-    // else{
-    //   alert("incorrect account number");
-      
-    // }
   }
 
-  // acnoChange(event:any){   //HTML to ts data binding ($event binding)
-  //   console.log(event)
-  //   console.log(event.target.value);
-  //   this.acno=event.target.value
-  // }
-
-  // pswChange(event:any){
-  //   console.log(event);
-  //   console.log(event.target.value);
-  //   this.pswrd=event.target.value
-  // }
 }
