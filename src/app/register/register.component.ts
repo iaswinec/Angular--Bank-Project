@@ -10,10 +10,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class RegisterComponent {
 
-  // uname:any
-  // acno:any
-  // pswd:any
-
     constructor(private ds:DataService, private router:Router, private fb:FormBuilder) {}
 
       registerForm=this.fb.group({

@@ -3,15 +3,20 @@
 </div>
 
 <h1 class="text-center mt-5 p-5">Sign in</h1>
-<form class="container text-center w-50">
+<form [formGroup]="loginForm" class="container text-center w-50">
     <div class="form-outline mb-4">
-        <input [(ngModel)]="acno" type="text" id="u1" name="uname" [placeholder]="data1" class="form-control mt-2 p-2" />
+        <input formControlName="uname" type="text" id="u1" name="uname" [placeholder]="data1" class="form-control mt-2 p-2" />
     </div>
+            <div *ngIf="this.loginForm.get('uname')?.errors && this.loginForm.get('uname')?.touched">
+                <p class="text-danger">numbers only</p>
+            </div>
 
     <div class="form-outline mb-4">
-        <input [(ngModel)]="pswd" type="password"  id="p1" name="password" placeholder="Password" class="form-control mt-2 p-2" />
+        <input formControlName="password" type="password"  id="p1" name="password" placeholder="Password" class="form-control mt-2 p-2" />
     </div>
-
+            <div *ngIf="this.loginForm.get('password')?.errors && this.loginForm.get('password')?.touched">
+                <p class="text-danger">alphabets&numbers only</p>
+            </div>
     <div>
         <button (click)="login()" type="button" class="btn btn-info  mt-4 mb-3 p-2">Sign in</button>
         <div class="d-flex justify-content-center">

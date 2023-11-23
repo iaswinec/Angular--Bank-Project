@@ -1,21 +1,28 @@
-<h2 class="text-center mt-4">WELCOME {{username}}</h2>   <!-- string interpolation  -->    
+<h2 class="text-center mt-4">WELCOME {{username}}</h2>    
 
 <div class="row mt-4 p-2">
     <div class="col-4 container text-center">
         <h4 >DEPOSIT</h4>
-        <form class="">
+        <form [formGroup]="depositForm" class="">
             <div class="form-outline mb-4">
-                <input type="text" [(ngModel)]="accnum" id="accno1" name="accnum" placeholder="Account number"  class="form-control mt-2 p-2" />
+                <input type="text" formControlName="acno" id="accno1" name="accnum" placeholder="Account number"  class="form-control mt-2 p-2" />
             </div>
+                    <div *ngIf="this.depositForm.get('acno')?.errors && this.depositForm.get('acno')?.touched">
+                        <p class="text-danger">numbers only</p>
+                    </div>
         
             <div class="form-outline mb-4">
-                <input type="password" [(ngModel)]="password"  id="pswd1" name="password" placeholder="Password" class="form-control mt-2 p-2" />
+                <input type="password" formControlName="pswd" id="pswd1" name="password" placeholder="Password" class="form-control mt-2 p-2" />
             </div>
-
+                    <div *ngIf="this.depositForm.get('pswd')?.errors && this.depositForm.get('pswd')?.touched">
+                        <p class="text-danger">alphabets&numbers only</p>
+                    </div>
             <div class="form-outline mb-4">
-                <input type="number" [(ngModel)]="amount"  id="amnt1" name="amount" placeholder="Amount" class="form-control mt-2 p-2" />
+                <input type="number"  formControlName="amnt"  id="amnt1" name="amount" placeholder="Amount" class="form-control mt-2 p-2" />
             </div>
-        
+                    <div *ngIf="this.depositForm.get('amnt')?.errors && this.depositForm.get('amnt')?.touched">
+                        <p class="text-danger">numbers only</p>
+                    </div>
             <div>
                 <button (click)="deposit()"  type="button" class="btn btn-info  mt-4 mb-3 p-2">Deposit</button>
             </div>
@@ -24,19 +31,26 @@
     
     <div class="col-4 container text-center">
         <h4>WITHDRAW</h4>
-        <form class="">
+        <form [formGroup]="withdrawForm" class="">
             <div class="form-outline mb-4">
-                <input type="text" [(ngModel)]="accnum2" id="accno2" name="accnum" placeholder="Account number"  class="form-control mt-2 p-2" />
+                <input type="text" formControlName="acno2" id="accno2" name="accnum" placeholder="Account number"  class="form-control mt-2 p-2" />
             </div>
-        
+                    <div *ngIf="this.withdrawForm.get('acno2')?.errors && this.withdrawForm.get('acno2')?.touched">
+                        <p class="text-danger">numbers only</p>
+                    </div>
             <div class="form-outline mb-4">
-                <input type="password" [(ngModel)]="password2" id="pswd2" name="password" placeholder="Password" class="form-control mt-2 p-2" />
+                <input type="password" formControlName="pswd2" id="pswd2" name="password" placeholder="Password" class="form-control mt-2 p-2" />
             </div>
+                    <div *ngIf="this.withdrawForm.get('pswd2')?.errors && this.withdrawForm.get('pswd2')?.touched">
+                        <p class="text-danger">alphabets&numbers only</p>
+                    </div>
 
             <div class="form-outline mb-4">
-                <input type="number" [(ngModel)]="amount2"  id="amnt2" name="amount" placeholder="Amount" class="form-control mt-2 p-2" />
+                <input type="number" formControlName="amnt2"   id="amnt2" name="amount" placeholder="Amount" class="form-control mt-2 p-2" />
             </div>
-        
+                    <div *ngIf="this.withdrawForm.get('amnt2')?.errors && this.withdrawForm.get('amnt2')?.touched">
+                        <p class="text-danger">numbers only</p>
+                    </div>
             <div>
                 <button (click)="withdraw()"  type="button" class="btn btn-info  mt-4 mb-3 p-2">Withdraw</button>
             </div>
