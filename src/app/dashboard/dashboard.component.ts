@@ -1,19 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
   username:any
-  constructor(private ds: DataService, private fb:FormBuilder){
-    this.username=this.ds.currentUser
 
+  constructor(private ds: DataService, private fb:FormBuilder, private router:Router){
+    this.username=this.ds.currentUser
   }
+
+  ngOnInit(): void{
+    if(!localStorage.getItem("currentAcno")){
+        alert("please login")
+        this.router.navigateByUrl("")
+    }
+  }
+
   depositForm=this.fb.group({
       acno:['',[Validators.required, Validators.pattern('[0-9]+')]],
       pswd:['',[Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
@@ -56,6 +65,12 @@ export class DashboardComponent {
         alert(`incorrect accoount number or password`)
       }
     }
+  }
+
+  logout(){
+    localStorage.removeItem("currentUser")
+    localStorage.removeItem("currentAcno")
+    this.router.navigateByUrl("")
   }
 
 

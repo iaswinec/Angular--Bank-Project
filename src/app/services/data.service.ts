@@ -1,21 +1,63 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
   currentUser:any
-  currentAcno:any  //current account number
+  currentAcno:any 
+  // 
+  userDetails:any
+  // 
 
-  userDetails:any={   //created  transaction array to store transactions
-    1000:{username:"anu", acno:1000, password:"1234", balance:0, transaction:[]},
-    1001:{username:"amal", acno:1001, password:"1234", balance:0, transaction:[]},
-    1002:{username:"arun", acno:1002, password:"1234", balance:0, transaction:[]},
-    1003:{username:"megha", acno:1003, password:"1234", balance:0, transaction:[]}
-  }
+  // userDetails:any={   
+  //   1000:{username:"anu", acno:1000, password:"1234", balance:0, transaction:[]},
+  //   1001:{username:"amal", acno:1001, password:"1234", balance:0, transaction:[]},
+  //   1002:{username:"arun", acno:1002, password:"1234", balance:0, transaction:[]},
+  //   1003:{username:"megha", acno:1003, password:"1234", balance:0, transaction:[]}
+  // }
   
-  constructor(private router:Router, ) { }
+  constructor( ) {
+    this.getDetails()
+  }
+
+  // created a method to store in localstorage
+  saveDetails(){
+    if(this.userDetails){
+      localStorage.setItem("userDetails",JSON.stringify(this.userDetails))
+    }
+    if(this.currentUser){
+      localStorage.setItem("currentUser",this.currentUser)
+    }
+    if(this.currentAcno){
+      localStorage.setItem("currentAcno",JSON.stringify(this.currentAcno))
+    }
+  }
+  // created a method to access data from localstorage 
+  getDetails(){
+    if(localStorage.getItem("userDetails")){
+      this.userDetails=JSON.parse(localStorage.getItem("userDetails") || "")
+    }
+    if(localStorage.getItem("currentUser")){
+      this.currentUser=localStorage.getItem("currentUser")
+    }
+    if(localStorage.getItem("currentAcno")){
+      this.currentAcno=JSON.parse(localStorage.getItem("currentAcno") || "")
+    }
+  }
+// created a method to delete data from localstorage 
+  delete(){
+    if(localStorage.getItem("currentUser")){
+      localStorage.removeItem("currentUser")
+    }
+    if(localStorage.getItem("currentAcno")){
+      localStorage.removeItem("currentAcno")
+    }
+  }
+
+
+
   
   register(uname:any, accno:any, psw:any){
     var userdetails=this.userDetails
@@ -24,19 +66,23 @@ export class DataService {
     }
     else{
       userdetails[accno]={username:uname, acno:accno, password:psw, balance:0, transaction:[]}
-      console.log(userdetails);    
+      console.log(userdetails); 
+      this.saveDetails()   //
       return true
     }
   }
   
   login(acno:any, psw:any){
-    if(acno in this.userDetails){
-      if(psw==this.userDetails[acno]["password"]){   
-        this.currentUser=this.userDetails[acno]["username"]
+    // console.log("hello",acno,psw);
+    
+    var userDetails=this.userDetails
+    if(acno in userDetails){
+      if(psw==userDetails[acno]["password"]){   
+        this.currentUser=userDetails[acno]["username"]
 
-        this.currentAcno=acno   //current account number
-        
-        this.router.navigateByUrl("dashboard")  
+        this.currentAcno=acno  
+        this.saveDetails()  //
+        // this.router.navigateByUrl("dashboard")  
         return true
       }
       else{
@@ -56,10 +102,9 @@ export class DataService {
     if(accnum in userdetails){
         if(password==userdetails[accnum]["password"]){
           userdetails[accnum]["balance"]+=amnt
-          
-          //add transaction data
+        
           userdetails[accnum]["transaction"].push({ Type:"credit",Amount:amnt}) 
-          
+          this.saveDetails()  //
           console.log(this.userDetails);
           return userdetails[accnum]["balance"]
         }
@@ -83,8 +128,9 @@ export class DataService {
         if(amnt<=userdetails[accnum]["balance"]){
           userdetails[accnum]["balance"]-=amnt
 
-          //add transaction data
+
           userdetails[accnum]["transaction"].push({Type:"debit",Amount:amnt})
+          this.saveDetails()  //
           console.log(this.userDetails);
           return userdetails[accnum]["balance"]
         }
