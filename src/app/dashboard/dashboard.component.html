@@ -1,12 +1,17 @@
 
 <div class="text-end">
-    <button (click)="logout()" class="rounded-pill">Log out</button>
+    <button (click)="logout()" class="me-3 mt-2 mb-2 btn btn-secondary">Log out</button>    
 </div>
-<h2 class="text-center mt-4">WELCOME {{username}}</h2>    
-    
 
+<div class="text-end">
+<button (click)="deleteAcc()" class="me-3 mt-2 btn btn-danger">Delete</button>
+</div>
 
-<div class="row mt-4 p-2">
+<app-delete [item]="acno"></app-delete>   <!-- || -->
+
+<h2  [ngClass]="acno?'s1':''" class="text-center mt-4">WELCOME {{username}}</h2>    
+
+<div [ngClass]="acno?'s1':''" class="row mt-4 p-2">
     <div class="col-4 container text-center">
         <h4 >DEPOSIT</h4>
         <form [formGroup]="depositForm" class="">
@@ -63,6 +68,6 @@
         </form>
     </div>
 </div>
-<div class="text-end me-4">
+<div  [ngClass]="acno?'s1':''"  class="text-end me-4">
     <h5 class="text-primary" routerLink="/transaction">view transactions</h5>
 </div>

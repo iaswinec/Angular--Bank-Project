@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   username:any
+  acno:any  //
 
   constructor(private ds: DataService, private fb:FormBuilder, private router:Router){
     this.username=this.ds.currentUser
@@ -73,6 +74,9 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl("")
   }
 
+  deleteAcc(){
+    this.acno=JSON.parse(localStorage.getItem("currentAcno") || "")
+  }
 
 
 }
