@@ -78,5 +78,8 @@ export class DashboardComponent implements OnInit {
     this.acno=JSON.parse(localStorage.getItem("currentAcno") || "")
   }
 
+  cancelChild(){
+    this.acno="" //account number is empty. So the s1 class in style.css doesn't work
+  }
 
 }

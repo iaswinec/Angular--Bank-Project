@@ -12,7 +12,10 @@ export class LoginComponent {
   data="Your Perfect Banking Partner"  
   data1="Enter your account number" 
 
+  datedata:any  //to display date and time
+
   constructor( private router:Router, private ds:DataService, private fb:FormBuilder){  
+    this.datedata=new Date()
 
 
   }
