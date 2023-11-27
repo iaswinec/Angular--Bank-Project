@@ -14,7 +14,8 @@ export class DashboardComponent implements OnInit {
   acno:any  //
 
   constructor(private ds: DataService, private fb:FormBuilder, private router:Router){
-    this.username=this.ds.currentUser
+    // this.username=this.ds.currentUser
+    this.username=localStorage.getItem("currentUser")
   }
 
   ngOnInit(): void{
@@ -37,19 +38,22 @@ export class DashboardComponent implements OnInit {
 })
 
   deposit(){
-    var accnum=this.depositForm.value.acno
+    var acno=this.depositForm.value.acno 
     var password=this.depositForm.value.pswd
     var amount=this.depositForm.value.amnt
 
     if(this.depositForm.valid){ 
-    const result=this.ds.deposit(accnum,password,amount)
-        if(result){
-          alert(`Amount ${amount} deosited successfully and the available balance is ${result}`)
-        }
-        else{
-          alert(`incorrect accoount number or password`)
-        }
-      }
+    this.ds.deposit(acno,password,amount).subscribe((result:any)=>{
+      alert(result.message)
+    },
+    result=>{
+      alert(result.error.message)
+    }
+    )
+  }
+  else{
+    alert("invalid form")
+  }
   }
 
   withdraw(){
@@ -58,13 +62,16 @@ export class DashboardComponent implements OnInit {
     var amount=this.withdrawForm.value.amnt2
 
     if(this.withdrawForm.valid){ 
-      const result=this.ds.withdraw(accnum,pswd,amount)
-      if(result){
-        alert(`Amount ${amount} withdrew successfully and the available balance is ${result}`)
+      this.ds.withdraw(accnum,pswd,amount).subscribe((result:any)=>{
+        alert(result.message)
+    },
+    result=>{
+      alert(result.error.message)
       }
-      else{
-        alert(`incorrect accoount number or password`)
-      }
+      )
+    }
+    else{
+      alert("invalid form")
     }
   }
 
@@ -82,4 +89,10 @@ export class DashboardComponent implements OnInit {
     this.acno="" //account number is empty. So the s1 class in style.css doesn't work
   }
 
+  ondeleteAcc(event:any){
+    this.ds.deleteAcc(event).subscribe((result:any)=>{
+      alert(result.message)
+      this.logout()
+    })
+  }
 }

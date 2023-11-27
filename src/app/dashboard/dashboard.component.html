@@ -7,7 +7,7 @@
 <button (click)="deleteAcc()" class="me-3 mt-2 btn btn-danger">Delete</button>
 </div>
 
-<app-delete (onCancel)="cancelChild()" [item]="acno"></app-delete>   <!-- || -->
+<app-delete (onDelete)="ondeleteAcc($event)" (onCancel)="cancelChild()" [item]="acno"></app-delete>   <!-- || -->
 
 <h2  [ngClass]="acno?'s1':''" class="text-center mt-4">WELCOME {{username}}</h2>     
 

@@ -31,14 +31,16 @@ export class LoginComponent {
     var password=this.loginForm.value.password
 
     if(this.loginForm.valid){ 
-          const result=this.ds.login(uname,password)
-          if(result){
-            alert("login successful")
+          this.ds.login(uname,password).subscribe((result:any)=>{
+            localStorage.setItem("currentUser",result.currentUser)
+            localStorage.setItem("currentAcno",JSON.stringify(result.currentAcno))
+            localStorage.setItem("token", JSON.stringify(result.token))
+            alert(result.message)
             this.router.navigateByUrl("dashboard")
-          }
-          else{
-            alert("login failed")
-          }
+          }, 
+          result=>{
+            alert(result.error.message)
+          })
         }
         else{
           alert("invalid form")
